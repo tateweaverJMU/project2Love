@@ -2,7 +2,7 @@ const resultsDiv = document.getElementById("resultsBox")
 const quotesDiv = document.getElementById("quotesBox")
 
 
-const quotesArray = [];
+let quotesArray = [];
 
 
 
@@ -24,6 +24,7 @@ const options2 = {
 
 async function getLove() {
     
+    quotesArray = [];
     resultsDiv.innerHTML = "";
     quotesDiv.innerHTML = "";
 
@@ -45,7 +46,9 @@ async function getLove() {
     
     const loveQuoteResp = await fetch('https://love-quote.p.rapidapi.com/lovequote', options2)
     const loveQuote = await loveQuoteResp.json()
-    quotesArray[i] = loveQuote
+    if (!loveQuote.title) {
+        quotesArray[i] = loveQuote
+    }
 
     }
 
@@ -54,15 +57,46 @@ async function getLove() {
 
 
 function writeCards(sort) {
-    quotesDiv.innerHTML = "";
+    // for (let i = 0; i < 5; i++)
+    // {
+    //     //
+    //     let q = "";
+    //     if (!arr[i].title) {
+    //         q = arr[i].quote;
+    //     }
+    //     else {
+    //         q = arr[i].title;
+    //     }
+    // }
 
-    let arr = quotesArray;
+
+    if (quotesArray.length === 0) {
+        return;
+    }
+    quotesDiv.innerHTML = 
+    `<button class="sort" type="button" onclick="writeCards(1)">Sort A-Z</button>
+    <button class="sort" type="button" onclick="writeCards(2)">Sort Length</button>
+    <button class="sort" type="button" onclick="writeCards(0)">Reset</button>`;
+
+    let arr = []
+
+    if (sort === 0) {
+        arr = quotesArray;
+    }
 
     if (sort === 1) {
-
-        arr = quotesArray.sort(compare);
+        arr = [...quotesArray]
+        arr.sort(compareAlpha);
 
     }
+
+    if (sort === 2) {
+        arr = [...quotesArray]
+        arr.sort((a,b) => (a.quote).length - (b.quote).length)
+    }
+
+        
+    
         for (let i = 0; i < 5; i++)
         {
             let q = "";
@@ -87,7 +121,7 @@ function writeCards(sort) {
 
 }
 
-function compare( a, b ) {
+function compareAlpha( a, b ) {
     if ( a.author[0] < b.author[0] ){
       return -1;
     }

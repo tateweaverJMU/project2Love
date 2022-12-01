@@ -12,21 +12,27 @@ html {
 
 body {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 #heart {
     position: relative; 
-    width: 100px; 
-    height: 90px;
+    margin: auto;
+    top: 15px;
+    width: 200px; 
+    height: 160px;
 }
 
 #heart:before, #heart:after { 
     position: absolute; 
     content: ""; 
-    left: 50px; 
+    left: 100px; 
     top: 0; 
-    width: 50px; 
-    height: 80px; 
+    width: 100px; 
+    height: 160px; 
     background: red; 
     border-radius: 50px 50px 0 0; 
     transform: rotate(-45deg); 
@@ -41,6 +47,8 @@ body {
 
 #resultsBox {
     position: relative;
+    font-size: 50px;
+    top: 40px;
     z-index: 100;
 }
 
@@ -51,4 +59,26 @@ body {
     max-width: 18rem;
     border-style: dotted;
     margin-top: 10px;
+}
+
+.sort {
+    background: none;
+    border: none;
+    color: blue;
+    text-decoration: underline;
+}
+
+#quotesBox {
+    margin-top: 30px;
+}
+
+footer {
+    position: relative;
+    padding-bottom: 0;
+    margin-top: 10px;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: rgb(216, 207, 207);
+    padding: 5px;
 }
