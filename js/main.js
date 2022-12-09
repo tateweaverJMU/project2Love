@@ -76,7 +76,9 @@ function writeCards(sort) {
     quotesDiv.innerHTML = 
     `<button class="sort" type="button" onclick="writeCards(1)">Sort A-Z</button>
     <button class="sort" type="button" onclick="writeCards(2)">Sort Length</button>
-    <button class="sort" type="button" onclick="writeCards(0)">Reset</button>`;
+    <button class="sort" type="button" onclick="writeCards(0)">Reset</button>
+    <input type="text" name="search" id="searchResults" value="Search...">
+    <button class="sort" type="button" onclick="writeCards(3)">Search</button>`;
 
     let arr = []
 
@@ -93,6 +95,12 @@ function writeCards(sort) {
     if (sort === 2) {
         arr = [...quotesArray]
         arr.sort((a,b) => (a.quote).length - (b.quote).length)
+    }
+
+    if (sort === 3) {
+        let PATTERN = document.getElementById("searchResults").value
+        arr = [...quotesArray]
+        filtered = arr.filter(function (str) { return str.indexOf(PATTERN) === -1; });
     }
 
         

@@ -13,10 +13,28 @@ html {
 body {
     text-align: center;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     min-height: 100vh;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin: auto;
 }
+
+@media screen and (min-width: 1000px) {
+    img {
+        position: relative;
+        left: 0px;
+        max-width: 500px;
+        max-height: 100vh;
+        padding: 30px;
+    }
+}
+
+@media screen and (max-width: 999px) {
+    img {
+        display: none;
+    }
+}
+
 
 #heart {
     position: relative; 
