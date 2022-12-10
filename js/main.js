@@ -7,19 +7,24 @@ let quotesArray = [];
 
 
 const options = {
-	method: 'GET',
-	headers: {
-		'X-RapidAPI-Key': '6de12a74a5mshe9e3ca19c9b329dp1b5d75jsnfb6a3f4ebfd6',
-		'X-RapidAPI-Host': 'love-calculator.p.rapidapi.com'
-	}
+    method: 'GET',
+    headers: {
+        'X-RapidAPI-Key': '6de12a74a5mshe9e3ca19c9b329dp1b5d75jsnfb6a3f4ebfd6',
+        'X-RapidAPI-Host': 'love-calculator.p.rapidapi.com'
+    }
 };
 
 const options2 = {
     method: 'GET',
     headers: {
-        'X-RapidAPI-Key': '6de12a74a5mshe9e3ca19c9b329dp1b5d75jsnfb6a3f4ebfd6',
-        'X-RapidAPI-Host': 'love-quote.p.rapidapi.com'
+        'X-RapidAPI-Key': '1e37376500mshba77545fa443fe8p19c17fjsn36ed24b7d481',
+        'X-RapidAPI-Host': 'quotes15.p.rapidapi.com'
     }
+    // method: 'GET',
+    // headers: {
+    //     'X-RapidAPI-Key': '6de12a74a5mshe9e3ca19c9b329dp1b5d75jsnfb6a3f4ebfd6',
+    //     'X-RapidAPI-Host': 'love-quote.p.rapidapi.com'
+    // }
 };
 
 async function getLove() {
@@ -44,11 +49,17 @@ async function getLove() {
 
     for (let i = 0; i < 5; i++) {
     
-    const loveQuoteResp = await fetch('https://love-quote.p.rapidapi.com/lovequote', options2)
-    const loveQuote = await loveQuoteResp.json()
-    if (!loveQuote.title) {
-        quotesArray[i] = loveQuote
-    }
+        const RandomquotesResp = await fetch('https://quotes15.p.rapidapi.com/quotes/random/', options2);
+        const quote = await RandomquotesResp.json()
+        quotesArray[i] = quote
+        // console.log(quote)
+        // console.log(quote.originator.name)
+
+        //const loveQuoteResp = await fetch('https://love-quote.p.rapidapi.com/lovequote', options2)
+        //const loveQuote = await loveQuoteResp.json()
+        // if (!loveQuote.title) {
+        //     quotesArray[i] = loveQuote
+        // }
 
     }
 
@@ -72,6 +83,7 @@ function writeCards(sort) {
 
     if (quotesArray.length === 0) {
         return;
+
     }
     quotesDiv.innerHTML = 
     `<button class="sort" type="button" onclick="writeCards(1)">Sort A-Z</button>
@@ -104,22 +116,41 @@ function writeCards(sort) {
     }
 
         
-    
+        
+        // for (let i = 0; i < 5; i++)
+        // {
+        //     let q = "";
+        //     if (!arr[i].title) {
+        //         q = arr[i].quote;
+        //     }
+        //     else {
+        //         q = arr[i].title;
+        //     }
+
+        //     quotesDiv.innerHTML += 
+        //     `<div id="quotesCard" class="card">
+        //     <div class="card-body">
+        //     <h5 class="card-title">${arr[i].author}</h5>
+        //     <p class="card-text">${q}</p>
+        //     </div>
+        //     </div>`
+        // }
+        console.log(arr.length)
         for (let i = 0; i < 5; i++)
         {
-            let q = "";
-            if (!arr[i].title) {
-                q = arr[i].quote;
-            }
-            else {
-                q = arr[i].title;
-            }
+            // let q = "";
+            // if (!arr[i].title) {
+            //     q = arr[i].quote;
+            // }
+            // else {
+            //     q = arr[i].title;
+            // }
 
             quotesDiv.innerHTML += 
             `<div id="quotesCard" class="card">
             <div class="card-body">
-            <h5 class="card-title">${arr[i].author}</h5>
-            <p class="card-text">${q}</p>
+            <h5 class="card-title">${arr[i].content}</h5>
+            <p class="card-text">${arr[i].originator.name}</p>
             </div>
             </div>`
         }
@@ -130,11 +161,11 @@ function writeCards(sort) {
 }
 
 function compareAlpha( a, b ) {
-    if ( a.author[0] < b.author[0] ){
+    if ( a.originator.name[0] < b.originator.name[0] ){
       return -1;
     }
-    if ( a.author[0] > b.author[0] ){
+    if ( a.originator.name[0] > b.originator.name[0] ){
       return 1;
     }
     return 0;
-  }
+}
